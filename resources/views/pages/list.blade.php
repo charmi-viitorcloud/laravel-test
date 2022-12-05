@@ -17,7 +17,6 @@
                             <th>Firstname</th>
                             <th>Lastname</th>
                             <th>Email</th>
-                            <th>Password</th>
                             <th>Dob</th>
                             <th>Operations</th>
                         </tr>
@@ -28,7 +27,6 @@
                             <td>{{$user->firstname}}</td>
                             <td>{{$user->lastname}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{$user->password}}</td>
                             <td>{{$user->dob}}</td>
                             <td>
                                 <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary">Edit</a>&nbsp;

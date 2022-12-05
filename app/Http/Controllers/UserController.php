@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+// use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+ use Illuminate\Validation\Rules;
+//  use Illuminate\Contracts\Validation\Rule;
+ use Illuminate\Validation\Rule;
+
+
+
 
 
 
@@ -40,8 +46,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
+
+        $request->validate([
+            'firstname' => ['required', 'string','regex:/^[a-zA-Z]+$/u', 'max:255'],
+            'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u','max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'dob' => ['required'],
+        ]);
+
         // dd($request->all());
         $user = new User;
         $user->firstname = $request->firstname;
@@ -87,6 +102,14 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        $request->validate([
+            // 'firstname' => ['required', 'string','regex:/^[a-zA-Z]+$/u', 'max:255'],
+            // 'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u','max:255'],
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'dob' => ['required'],
+        ]);
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->email = $request->email;

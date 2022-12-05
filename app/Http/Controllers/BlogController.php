@@ -38,8 +38,16 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BlogRequest $request)
+    public function store(Request $request)
     {
+
+        
+        $request->validate([
+            'title' => ['required'],
+            'description' => ['required'],
+            'created_by' => ['required'],
+        ]);
+
        
         $blog=new Blog;
         $blog->title=$request->title;
@@ -81,12 +89,12 @@ class BlogController extends Controller
      * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(BlogRequest $request, Blog $blog)
+    public function update(Request $request, Blog $blog)
     {
         $blog->title=$request->title;
         $blog->description=$request->description;
-        $blog->created_by=$request->created_by;
-        $blog->status=$request->status;
+        // $blog->created_by=$request->created_by;
+        // $blog->status=$request->status;
         $blog->update();
  
         return redirect()->route('blogs.index')
