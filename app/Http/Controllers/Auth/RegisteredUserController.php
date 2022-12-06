@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
+
 
 class RegisteredUserController extends Controller
 {
@@ -35,9 +38,9 @@ class RegisteredUserController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'firstname' => ['required', 'string','regex:/^[a-zA-Z]+$/u', 'max:255'],
-            'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u','max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'firstname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u', 'max:255'],
+            'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'dob' => ['required'],
         ]);
@@ -49,14 +52,16 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'dob' => $request->dob,
             'g-recaptcha-response' => 'required|captcha',
-
-
         ]);
 
-        event(new Registered($user));
+        // Mail::to("charmi.santoki@viitorcloud.com")->send(new TestMail($user));
 
-        Auth::login($user);
+         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+         Auth::login($user);
+        //  return redirect(RouteServiceProvider::HOME);
+
+
+        // return "Email Sent";
     }
 }

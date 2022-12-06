@@ -20,9 +20,9 @@ class TestMail extends Mailable
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct()
     {
-        $this->details = $details;
+        $this->middleware(['auth','verified']);
     }
 
     /**
@@ -32,6 +32,6 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Test Mail from Duke')->view('emails.MyTestMail');
+        return $this->subject('Test Mail from Duke')->view('emails.myTestMail');
     }
 }
