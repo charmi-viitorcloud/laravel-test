@@ -54,14 +54,15 @@ class RegisteredUserController extends Controller
             'g-recaptcha-response' => 'required|captcha',
         ]);
 
-        // Mail::to("charmi.santoki@viitorcloud.com")->send(new TestMail($user));
+        // Mail::to("charmi.santoki@viitor.cloud")->send(new TestMail($user));
 
-         event(new Registered($user));
+        event(new Registered($user));
+        Auth::login($user);
 
-         Auth::login($user);
-        //  return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME);
+       
 
 
-        // return "Email Sent";
+         // return "Email Sent";
     }
 }
