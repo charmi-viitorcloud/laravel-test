@@ -20,5 +20,5 @@
   <!-- common css -->
   <link media="all" type="text/css" rel="stylesheet" href="https://www.bootstrapdash.com/demo/star-laravel-free/template/css/app.css">
   <!-- end common css -->
-
+  
   </head>

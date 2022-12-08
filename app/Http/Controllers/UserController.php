@@ -25,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $user = User::paginate(3);
+        $user = User::paginate(10);
         return view('pages.list', ["users" => $user]);
     }
 
@@ -107,7 +107,7 @@ class UserController extends Controller
             // 'firstname' => ['required', 'string','regex:/^[a-zA-Z]+$/u', 'max:255'],
             // 'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u','max:255'],
             'email' => 'required|email|unique:users,email,'.$user->id,
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            //  'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'dob' => ['required'],
         ]);
         $user->firstname = $request->firstname;

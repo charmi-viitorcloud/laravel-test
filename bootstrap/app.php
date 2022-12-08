@@ -41,6 +41,11 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+// $app->register(\Jaybizzle\LaravelCrawlerDetect\LaravelCrawlerDetectServiceProvider::class);
+// $app->configure('laravel-logger');
+// $app->register(\jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class);
+// $app->routeMiddleware(['activity' => \jeremykenedy\LaravelLogger\App\Http\Middleware\LogActivity::class,]);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

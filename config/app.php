@@ -194,8 +194,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
-
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+       jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class,
     ],
 
     /*
@@ -211,6 +211,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
     ])->toArray(),
 
 ];

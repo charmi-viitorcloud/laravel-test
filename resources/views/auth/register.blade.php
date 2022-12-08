@@ -55,24 +55,14 @@
                 <x-input-error :messages="$errors->get('dob')" class="mt-2" />
             </div>
 
-            <div class="form-group row {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }} ">
-                <label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('captcha') }}</label>
-
-                <div class="col-md-3" style="">
-                    {!! app('captcha')->display() !!}
-                    @if ($errors->has('g-recaptcha-response'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                    </span>
-                    @endif
-                </div>
+            <div class="mt-4">
+                {!! htmlFormSnippet() !!}
             </div>
-
+            
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
-
                 <x-primary-button class="ml-4">
                     {{ __('Register') }}
                 </x-primary-button>

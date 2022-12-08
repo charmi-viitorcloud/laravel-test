@@ -14,6 +14,7 @@
                     <thead>
                         <th><a href="{{route('users.create')}}" class="btn btn-primary">Add User</a></th>
                         <tr>
+                            <th>Id</th>
                             <th>Firstname</th>
                             <th>Lastname</th>
                             <th>Email</th>
@@ -24,6 +25,7 @@
                     <tbody>
                         @foreach($users as $user)
                         <tr>
+                            <td>{{$user->id}}</td>
                             <td>{{$user->firstname}}</td>
                             <td>{{$user->lastname}}</td>
                             <td>{{$user->email}}</td>

@@ -17,7 +17,8 @@ class BlogController extends Controller
     public function index()
     {
         $user=Auth::user()->id;
-        $blog=Blog::where('created_by',$user)->paginate(3);
+        $blog=Blog::where('created_by',$user)
+        ->latest('id',$user)->paginate(10);
         return view('pages.bloglist',["blogs"=>$blog]);   
     }
 

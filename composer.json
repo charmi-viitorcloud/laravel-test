@@ -9,9 +9,11 @@
         "anhskohbo/no-captcha": "^3.4",
         "biscolab/laravel-recaptcha": "^5.4",
         "guzzlehttp/guzzle": "^7.2",
+        "jeremykenedy/laravel-logger": "^6.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "spatie/laravel-activitylog": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

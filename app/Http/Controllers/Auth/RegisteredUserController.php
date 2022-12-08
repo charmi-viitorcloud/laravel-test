@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
+
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -43,6 +45,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'dob' => ['required'],
+            'g-recaptcha-response' => 'recaptcha',//recaptcha validation
         ]);
 
         $user = User::create([

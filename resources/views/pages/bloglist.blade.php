@@ -17,6 +17,7 @@
                         <th><a href="{{route('blogs.create')}}" class="btn btn-primary">Add Blog</a></th>
 
                         <tr>
+                            <th>Id</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Created_by</th>
@@ -27,6 +28,7 @@
                     <tbody>
                         @foreach($blogs as $blog)
                         <tr>
+                            <td>{{$blog->id}}</td>
                             <td>{{$blog->title}}</td>
                             <td>{{$blog->description}}</td>
                             <td>{{$blog->created_by}}</td>
