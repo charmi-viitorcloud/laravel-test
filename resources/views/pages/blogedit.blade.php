@@ -29,21 +29,21 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="title">Title:</label>
+                            <label for="title">{{ __('Title') }}</label>
                             <input type="text" class="form-control" id="title" name="title"  value="{{$blog->title}}">
                         </div>
                         @if($errors->has('title'))
                         <span class="text-danger">{{$errors->first('title')}}</span>
                         @endif
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label for="description">{{ __('Description') }}</label>
                             <input type="text" class="form-control" id="description" name="description" value="{{$blog->description}}">
                         </div>
                         @if($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                         @endif 
                         <div class="form-group">
-                            <label for="created_by">Created_by:</label>
+                            <label for="created_by">{{ __('created_by') }}</label>
                             <input type="text" class="form-control" id="created_by" name="created_by" value="{{$blog->created_at}}">
                         </div>
                         @if($errors->has('created_by'))
@@ -53,16 +53,16 @@
 
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="status1">
-                            <label class="form-check-label" for="inactive">Active</label>
+                            <label class="form-check-label" for="inactive">{{ __('Active') }}</label>
                         </div>
                          <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="status2" checked>
-                            <label class="form-check-label" for="active">InActive</label>
+                            <label class="form-check-label" for="active">{{ __('InActive') }}</label>
                         </div>
                         @if($errors->has('status'))
                         <span class="text-danger">{{$errors->first('status')}}</span>
                         @endif
-                        <button type="submit" id="user" class="btn btn-primary">Submit</button>               
+                        <button type="submit" id="user" class="btn btn-primary">{{ __('Submit') }}</button>               
                     </div>      
             </div>    
         </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
+
 class UserController extends Controller
 {
     /**
@@ -16,7 +17,6 @@ class UserController extends Controller
      */
     public function index()
     {
-
         $user = User::paginate(10);
         return view('pages.list', ["users" => $user]);
     }

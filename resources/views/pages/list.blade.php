@@ -12,14 +12,14 @@
                 @endif
                 <table class="table">
                     <thead>
-                        <th><a href="{{route('users.create')}}" class="btn btn-primary">Add User</a></th>
+                        <th><a href="{{route('users.create')}}" class="btn btn-primary">{{ __('Add User') }}</a></th>
                         <tr>
-                            <th>Id</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Dob</th>
-                            <th>Operations</th>
+                            <th>{{ __('Id') }}</th>
+                            <th>{{ __('Firstname') }}</th>
+                            <th>{{ __('Lastname') }}</th>
+                            <th>{{ __('Email') }}</th>
+                            <th>{{ __('Dob') }}</th>
+                            <th>{{ __('Operations') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,11 +31,11 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->dob}}</td>
                             <td>
-                                <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary">Edit</a>&nbsp;
+                                <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary">{{ __('Edit') }}</a>&nbsp;
                                 <form action="{{route('users.destroy',$user->id)}}" method="post" style="display:inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger" oclick="return confirm('Sure to Delete')">Delete</button>
+                                    <button class="btn btn-danger" oclick="return confirm('Sure to Delete')">{{ __('Delete') }}</button>
                                 </form>
                             </td>
                         </tr>

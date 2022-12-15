@@ -9,6 +9,10 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TestQueueEmails;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +26,16 @@ use App\Http\Controllers\TestQueueEmails;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('/welcome');
 });
+// Route::get('/', [AuthenticatedSessionController::class, 'create']);
+
+// Route::get('/', [RegisteredUserController::class, 'create']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,7 +47,6 @@ Route::middleware(['auth','verified'])->group(function () {
 
 require __DIR__ . '/auth.php';
 
-
 Route::get('email-test', function(){
   
     $details['email'] = 'your_email@gmail.com';
@@ -47,4 +54,3 @@ Route::get('email-test', function(){
     dispatch(new App\Jobs\SendEmailJob($details));
   
 });
-
