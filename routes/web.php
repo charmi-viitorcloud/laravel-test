@@ -10,13 +10,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TestQueueEmails;
 
-
-
-
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +22,7 @@ use App\Http\Controllers\TestQueueEmails;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
@@ -53,6 +46,5 @@ Route::get('email-test', function(){
   
     dispatch(new App\Jobs\SendEmailJob($details));
   
-    // dd('done');
 });
 

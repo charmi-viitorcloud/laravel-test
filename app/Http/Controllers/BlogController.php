@@ -16,10 +16,10 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $user=Auth::user()->id;
-        $blog=Blog::where('created_by',$user)
-        ->latest('id',$user)->paginate(10);
-        return view('pages.bloglist',["blogs"=>$blog]);   
+        $user = Auth::user()->id;
+        $blog = Blog::where('created_by', $user)
+            ->latest('id', $user)->paginate(10);
+        return view('pages.bloglist', ["blogs" => $blog]);
     }
 
     /**
@@ -29,8 +29,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $blog=Blog::all();
-        return view('pages.blogcreate',["blogs"=>$blog]);
+        $blog = Blog::all();
+        return view('pages.blogcreate', ["blogs" => $blog]);
     }
 
     /**
@@ -41,24 +41,20 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-
-        
         $request->validate([
             'title' => ['required'],
             'description' => ['required'],
             'created_by' => ['required'],
         ]);
-
-       
-        $blog=new Blog;
-        $blog->title=$request->title;
-        $blog->description=$request->description;
-        $blog->created_by=$request->created_by;
-        $blog->status=$request->status;
+        $blog = new Blog;
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->created_by = $request->created_by;
+        $blog->status = $request->status;
         $blog->save();
- 
+
         return redirect()->route('blogs.index')
-        ->with('success','Blog created successfully.');
+            ->with('success', 'Blog created successfully.');
     }
 
     /**
@@ -80,7 +76,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('pages.blogedit',compact('blog'));
+        return view('pages.blogedit', compact('blog'));
     }
 
     /**
@@ -92,14 +88,14 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        $blog->title=$request->title;
-        $blog->description=$request->description;
+        $blog->title = $request->title;
+        $blog->description = $request->description;
         // $blog->created_by=$request->created_by;
         // $blog->status=$request->status;
         $blog->update();
- 
+
         return redirect()->route('blogs.index')
-        ->with('success','Blog updated successfully');
+            ->with('success', 'Blog updated successfully');
     }
 
     /**
@@ -112,6 +108,6 @@ class BlogController extends Controller
     {
         $blog->delete();
         return redirect()->route('blogs.index')
-        ->with('success','Blog deleted successfully');
+            ->with('success', 'Blog deleted successfully');
     }
 }
