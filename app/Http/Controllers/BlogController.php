@@ -6,7 +6,6 @@ use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Support\Facades\Auth;
-
 class BlogController extends Controller
 {
     /**

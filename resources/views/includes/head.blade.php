@@ -7,18 +7,18 @@
   <!-- CSRF Token -->
   <meta name="_token" content="UwJmeF9l2meaaHaplBB66lKOtTz148IDUI2Fja3o">
   
-  <link rel="shortcut icon" href="https://www.bootstrapdash.com/demo/star-laravel-free/template/favicon.ico">
+  <link href="{{ asset('assets/css/favicon.css') }}" rel="stylesheet">
 
   <!-- plugin css -->
-  <link media="all" type="text/css" rel="stylesheet" href="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/plugins/@mdi/font/css/materialdesignicons.min.css">
-  <link media="all" type="text/css" rel="stylesheet" href="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/plugins/perfect-scrollbar/perfect-scrollbar.css">
+  <link href="{{ asset('assets/css/materialdesignicons.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/css/perfect-scrollbar.css') }}" rel="stylesheet">
   
   <!-- end plugin css -->
 
     <!-- <link media="all" type="text/css" rel="stylesheet" href="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/plugins/plugin.css"> -->
 
   <!-- common css -->
-  <link media="all" type="text/css" rel="stylesheet" href="https://www.bootstrapdash.com/demo/star-laravel-free/template/css/app.css">
+  <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
   <!-- end common css -->
   
   </head>

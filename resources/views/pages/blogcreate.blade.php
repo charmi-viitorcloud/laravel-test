@@ -49,7 +49,6 @@
                         <span class="text-danger">{{$errors->first('created_by')}}</span>
                         @endif
                         <label for="status">Status:</label>
-
                         <div class="form-check">
                             <input type="checkbox" name="status" value="1">
                             <label for="status1">Active</label>

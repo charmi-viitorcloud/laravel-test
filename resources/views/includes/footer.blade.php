@@ -9,29 +9,41 @@
 </div>
 </div>
 </div>
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
 
 <!-- base js -->
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/js/app.js"></script>
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+
+<script src="{{ asset('assets/js/perfect-scrollbar.min.js') }}"></script>
+
 <!-- end base js -->
 
 <!-- plugin js -->
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/plugins/chartjs/chart.min.js"></script>
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="{{ asset('assets/js/chart.mim.js') }}"></script>
+
+<script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
+
 <!-- end plugin js -->
 
 <!-- common js -->
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/js/off-canvas.js"></script>
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/js/hoverable-collapse.js"></script>
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/js/misc.js"></script>
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/js/settings.js"></script>
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/js/todolist.js"></script>
+<script src="{{ asset('assets/js/off-canvas.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+
+<script src="{{ asset('assets/js/misc.js') }}"></script>
+
+<script src="{{ asset('assets/js/settings.js') }}"></script>
+
+<script src="{{ asset('assets/js/todolist.js') }}"></script>
+
 <!-- end common js -->
 
-<script src="https://www.bootstrapdash.com/demo/star-laravel-free/template/assets/js/dashboard.js"></script>
+<script src="{{ asset('assets/js/dashboard.js') }}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+
+
 
   <!-- Include script -->
   {!! htmlScriptTagJsApi() !!}
