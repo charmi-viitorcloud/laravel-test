@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\Constant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::paginate(10);
+        $user = User::paginate(Constant::STATUS_TEN);
         return view('pages.list', ["users" => $user]);
     }
 

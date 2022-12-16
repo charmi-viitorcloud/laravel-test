@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\Constant;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Http\Requests\BlogRequest;
 use Illuminate\Support\Facades\Auth;
+
 class BlogController extends Controller
 {
     /**
@@ -17,7 +19,7 @@ class BlogController extends Controller
     {
         $user = Auth::user()->id;
         $blog = Blog::where('created_by', $user)
-            ->latest('id', $user)->paginate(10);
+            ->latest('id', $user)->paginate(Constant::STATUS_TEN);
         return view('pages.bloglist', ["blogs" => $blog]);
     }
 
