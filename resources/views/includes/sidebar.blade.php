@@ -24,7 +24,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <button class="btn btn-success btn-block">New Project <i class="mdi mdi-plus"> -->
                 </i>
                 </button>
             </div>

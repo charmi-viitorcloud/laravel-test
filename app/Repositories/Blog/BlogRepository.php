@@ -28,14 +28,4 @@ class BlogRepository extends Repository
        return  $this->model::orderBy('created_by','desc')->where('created_by',$authId)->get()->toArray();
      
     }
-
-     /**
-     * get blog listing
-     * 
-     * @return array
-     */
-    // public function createblog():array
-    // {       
-    //    dd("helo all");
-    // }
 }

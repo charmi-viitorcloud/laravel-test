@@ -13,20 +13,6 @@ use Illuminate\Http\RedirectResponse;
 
 class BlogController extends Controller
 {
-    /**
-     * * Blog Repositery.
-     *
-     * @param BlogRepository
-     */
-    // protected $blogRepositery;
-    // /**
-    //  * @param  BlogRepository  $blogRepositery
-    //  */
-    // public function __construct(BlogRepository $blogRepositery)
-    // {
-    //     $this->blogRepositery = $blogRepositery;
-    // }
-
     public function __construct(
         private BlogRepository $blogRepository
     ){
@@ -72,12 +58,11 @@ class BlogController extends Controller
      */
     public function store(BlogStoreRequest $request): RedirectResponse
     {
-        //  dd($request->all());
-        try {
+                try {
             $request['created_by'] = auth()->user()->id;
           
            $blogs = $this->blogRepository->createblog($request->all());
-                      //dd("ggghhghghghg");
+
            return redirect()
                ->route('blogs.index')
                ->withSuccess(__('blog.blog_created_successfully'));
@@ -130,7 +115,6 @@ class BlogController extends Controller
      */
     public function update(BlogUpdateRequest $request, int $id): RedirectResponse
     { 
-        // dd($request->all());
         try {
 
             $this->blogRepository->update($id, $request->all());

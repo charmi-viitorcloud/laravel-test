@@ -31,7 +31,6 @@ class UserRequest extends FormRequest
             'firstname' => ['required', 'string','regex:/^[a-zA-Z]+$/u', 'max:255'],
             'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u','max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            // 'password' => ['required', 'confirmed'],
             'dob' => ['required'],
         ];
     }

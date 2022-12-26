@@ -4,15 +4,15 @@
 @include('includes.head')
 
 <body>
-  @include('includes.header')
- <div class='container-fluid page-body-wrapper'>
+    @include('includes.header')
+    <div class='container-fluid page-body-wrapper'>
 
 
-  @include('includes.sidebar')
-  @yield('content')
-</div>
+        @include('includes.sidebar')
+        @yield('content')
+    </div>
 
-  @include('includes.footer')
+    @include('includes.footer')
 </body>
 
 </html>
