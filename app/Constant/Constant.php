@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Constant;
-
+use App\Models\Blog;
 class Constant
 {
     public const STATUS_TEN = 10;
@@ -47,6 +47,8 @@ class Constant
     public const BLOG_DESCRIPTION_COMMAND = 'Delete blogs older than the last 30 days and whose status is Inactive';
     public const BLOG_DESCRIPTION_PROCESS_START_COMMAND = 'Blog delete process started......';
     public const BLOG_DESCRIPTION_PROCESS_END_COMMAND = 'Blog delete successfully.';
+
+    public const BlOG = Blog::class;
 }
 
 ?>

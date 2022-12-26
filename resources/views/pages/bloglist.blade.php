@@ -28,14 +28,14 @@
                     <tbody>
                         @foreach($blogs as $blog)
                         <tr>
-                            <td>{{$blog->id}}</td>
-                            <td>{{$blog->title}}</td>
-                            <td>{{$blog->description}}</td>
-                            <td>{{$blog->created_by}}</td>
-                            <td>{{$blog->status}}</td>
+                            <td>{{$blog['id']}}</td>
+                            <td>{{$blog['title']}}</td>
+                            <td>{{$blog['description']}}</td>
+                            <td>{{$blog['created_by']}}</td>
+                            <td>{{$blog['status']}}</td>
                             <td>
-                                <a href="{{route('blogs.edit',$blog->id)}}" class="btn btn-primary">{{ __('Edit') }}</a>&nbsp;
-                                <form action="{{route('blogs.destroy',$blog->id)}}" method="post" style="display:inline-block">
+                                <a href="{{route('blogs.edit',$blog['id'])}}" class="btn btn-primary">{{ __('Edit') }}</a>&nbsp;
+                                <form action="{{route('blogs.destroy',$blog['id'])}}" method="post" style="display:inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger" oclick="return confirm('Sure to Delete')">{{ __('Delete') }}</button>
@@ -45,7 +45,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $blogs->links("pagination::bootstrap-4") }}
+                {{-- {{ $blogs->links("pagination::bootstrap-4") }} --}}
 
             </div>
         </div>

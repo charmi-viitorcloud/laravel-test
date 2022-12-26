@@ -2,25 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Constant\Constant;
 use App\Models\Blog;
-use Illuminate\Http\Request;
-use App\Http\Requests\BlogRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BlogStoreRequest;
+use App\Http\Requests\BlogUpdateRequest;
+use App\Repositories\Blog\BlogRepository;
+use Illuminate\Support\Facades\Log;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class BlogController extends Controller
 {
     /**
+     * * Blog Repositery.
+     *
+     * @param BlogRepository
+     */
+    // protected $blogRepositery;
+    // /**
+    //  * @param  BlogRepository  $blogRepositery
+    //  */
+    // public function __construct(BlogRepository $blogRepositery)
+    // {
+    //     $this->blogRepositery = $blogRepositery;
+    // }
+
+    public function __construct(
+        private BlogRepository $blogRepository
+    ){
+
+    }
+    /**  
      * Display a listing of the blog.
      *
-     * @return \Illuminate\Http\Response
+     * @return View|redirectResponse
      */
-    public function index()
+    public function index(): View|RedirectResponse
     {
-        $user = Auth::user()->id;
-        $blog = Blog::where('created_by', $user)
-            ->latest('id', $user)->paginate(Constant::STATUS_TEN);
-        return view('pages.bloglist', ["blogs" => $blog]);
+        try {
+
+            
+            $blogs = $this->blogRepository->getBlogList();
+            return view('pages.bloglist', compact('blogs'));
+        } catch (Exception $exception) {
+
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
 
     /**
@@ -28,10 +59,9 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        $blog = Blog::all();
-        return view('pages.blogcreate', ["blogs" => $blog]);
+        return view('pages.blogcreate');
     }
 
     /**
@@ -40,22 +70,24 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogStoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'title' => ['required'],
-            'description' => ['required'],
-            'created_by' => ['required'],
-        ]);
-        $blog = new Blog;
-        $blog->title = $request->title;
-        $blog->description = $request->description;
-        $blog->created_by = $request->created_by;
-        $blog->status = $request->status;
-        $blog->save();
+        //  dd($request->all());
+        try {
+            $request['created_by'] = auth()->user()->id;
+          
+           $blogs = $this->blogRepository->createblog($request->all());
+                      //dd("ggghhghghghg");
+           return redirect()
+               ->route('blogs.index')
+               ->withSuccess(__('blog.blog_created_successfully'));
+        } catch (Exception $exception) {
+            Log::error($exception);
 
-        return redirect()->route('blogs.index')
-            ->with('success', 'Blog created successfully.');
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
 
     /**
@@ -66,7 +98,6 @@ class BlogController extends Controller
      */
     public function show(blog $blog)
     {
-        return Blog::find($blog);
     }
 
     /**
@@ -75,9 +106,19 @@ class BlogController extends Controller
      * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit($id): View|RedirectResponse
     {
-        return view('pages.blogedit', compact('blog'));
+        try {
+            $blog = $this->blogRepository->findById($id);
+         
+            return view('pages.blogedit', compact('blog'));
+        } catch (Exception $exception) {
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
 
     /**
@@ -87,28 +128,43 @@ class BlogController extends Controller
      * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
-    {
-        $blog->title = $request->title;
-        $blog->description = $request->description;
-        // $blog->created_by=$request->created_by;
-        // $blog->status=$request->status;
-        $blog->update();
+    public function update(BlogUpdateRequest $request, int $id): RedirectResponse
+    { 
+        // dd($request->all());
+        try {
 
-        return redirect()->route('blogs.index')
-            ->with('success', 'Blog updated successfully');
+            $this->blogRepository->update($id, $request->all());
+            return redirect()
+                ->route('blogs.index')
+                ->withSuccess(__('blog.blog_updated_successfully'));
+        } catch (Exception $exception) {
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
-
     /**
      * Remove the specified blog from storage.
      *
      * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy($id): View|RedirectResponse
     {
-        $blog->delete();
-        return redirect()->route('blogs.index')
-            ->with('success', 'Blog deleted successfully');
+        try {
+            $blog = $this->blogRepository->delete($id);
+
+            return redirect()
+                ->back()
+                ->withSuccess(__('blog.blog_deleted_successfully'));
+        } catch (Exception $exception) {
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
 }

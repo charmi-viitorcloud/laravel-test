@@ -19,15 +19,15 @@ class BlogStoreRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Get the validation rules that apply to the request.p
      *
      * @return array
      */
     public function rules()
     {
         return [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => ['required'],
+            'description' => ['required'],
         ];
     }
 }

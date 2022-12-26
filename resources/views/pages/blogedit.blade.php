@@ -42,13 +42,13 @@
                         @if($errors->has('description'))
                         <span class="text-danger">{{$errors->first('description')}}</span>
                         @endif 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="created_by">{{ __('created_by') }}</label>
                             <input type="text" class="form-control" id="created_by" name="created_by" value="{{$blog->created_at}}">
                         </div>
                         @if($errors->has('created_by'))
                         <span class="text-danger">{{$errors->first('created_by')}}</span>
-                        @endif
+                        @endif --}}
                         <label for="status">Status:</label>
 
                         <div class="form-check">
