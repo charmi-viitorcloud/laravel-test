@@ -14,18 +14,21 @@ class Repository
     }
 
     /**
-     * @ param array $data
-     * @ return mixed
+     * Show the form for creating a new .
+     * @param array $data
+     * @return mixed
      */
-    public function createblog(array $data)
+    public function create(array $data)
     {
         return $this->model::create($data)->fresh();
     }
 
     /**
-     * @ param int $id
-     * @ param array $data
-     * @ return mixed
+     * Update the specified in storage.
+
+     * @param int $id
+     * @param array $data
+     * @return mixed
      */
     public function update(int $id, array $data)
     {
@@ -36,11 +39,21 @@ class Repository
         return $blog->fresh();
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
+
     public function findById($id)
     {
         return $this->model::find($id);
     }
 
+     /**
+     * Remove the specified from storage.
+     *
+     * @param mixed
+     */
     public function delete($id)
     {
         return $this->model::find($id)->delete();

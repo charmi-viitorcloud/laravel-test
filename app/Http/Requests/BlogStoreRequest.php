@@ -14,8 +14,7 @@ class BlogStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return Constant::STATUS_TRUE
-        ;
+        return Constant::STATUS_TRUE;
     }
 
     /**

@@ -22,10 +22,9 @@ class BlogRepository extends Repository
      * 
      * @return array
      */
-    public function getBlogList():array
-    {       
+    public function getBlogList()
+    {
         $authId = auth()->user()->id;
-       return  $this->model::orderBy('created_by','desc')->where('created_by',$authId)->get()->toArray();
-     
+        return  $this->model::orderBy('created_by', 'desc')->where('created_by', $authId)->latest('id', $authId)->paginate(Constant::STATUS_ONE);
     }
 }

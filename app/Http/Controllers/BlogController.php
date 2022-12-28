@@ -61,7 +61,7 @@ class BlogController extends Controller
                 try {
             $request['created_by'] = auth()->user()->id;
           
-           $blogs = $this->blogRepository->createblog($request->all());
+           $blogs = $this->blogRepository->create($request->all());
 
            return redirect()
                ->route('blogs.index')

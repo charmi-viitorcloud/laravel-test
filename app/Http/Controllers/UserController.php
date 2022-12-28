@@ -2,121 +2,154 @@
 
 namespace App\Http\Controllers;
 
-use App\Constant\Constant;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Log;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the user
+    public function __construct(
+        private UserRepository $userRepository
+    ) {
+    }
+    /**  
+     * Display a listing of the blog.
      *
-     * @return \Illuminate\Http\Response
+     * @return View|redirectResponse
      */
-    public function index()
+    public function index(): View|RedirectResponse
     {
-        $user = User::paginate(Constant::STATUS_TEN);
-        return view('pages.list', ["users" => $user]);
+        try {
+            $users = $this->userRepository->getUserList();
+            // dd($users);
+            return view('pages.list', compact('users'));
+        } catch (Exception $exception) {
+
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('user.something_want_wrong_try_again'));
+        }
     }
 
     /**
-     * Show the form for creating a new user.
+     * Show the form for creating a new blog.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
-        $user = User::all();
-        return view('pages.create', ["users" => $user]);
+        return view('pages.create');
     }
 
     /**
-     * Store a newly created user in storage.
+     * Store a newly created blog in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'firstname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u', 'max:255'],
-            'lastname' => ['required', 'string', 'regex:/^[a-zA-Z]+$/u', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'dob' => ['required'],
-        ]);
-        $user = new User;
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->password = Hash::make($request->password);
-        $user->dob = $request->dob;
-        $user->save();
+        try {
+            // $request['created_by'] = auth()->user()->id;
+            $request['password'] = Hash::make($request['password']);
+            // dd($request->password);
 
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully.');
+            $users = $this->userRepository->create($request->all());
+        //    dd($users);
+            return redirect()
+                ->route('users.index')
+                ->withSuccess(__('user.user_created_successfully'));
+        } catch (Exception $exception) {
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('user.something_want_wrong_try_again'));
+        }
     }
 
     /**
-     * Display the specified user.
+     * Display the specified blog.
      *
-     * @param  int  $id
+     * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
     public function show(user $user)
     {
-        return User::find($user);
     }
 
     /**
-     * Show the form for editing the specified user.
+     * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id): View|RedirectResponse
     {
-        return view('pages.edit', compact('user'));
+        try {
+            $user = $this->userRepository->findById($id);
+
+            return view('pages.edit', compact('user'));
+        } catch (Exception $exception) {
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('user.something_want_wrong_try_again'));
+        }
     }
 
     /**
-     * Update the specified resource in user.
+     * Update the specified blog in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, int $id): RedirectResponse
     {
-        $request->validate([
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'dob' => ['required'],
-        ]);
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->password = Hash::make($request->password);
-        $user->dob = $request->dob;
-        $user->update();
+        try {
+            $this->userRepository->update($id, $request->all());
+            return redirect()
+                ->route('users.index')
+                ->withSuccess(__('user.user_updated_successfully'));
+        } catch (Exception $exception) {
+            Log::error($exception);
 
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
+            return redirect()
+                ->back()
+                ->withError(__('user.something_want_wrong_try_again'));
+        }
     }
-
     /**
-     * Remove the specified user from storage.
+     * Remove the specified blog from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id): View|RedirectResponse
     {
-        $user->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        try {
+            $user = $this->userRepository->delete($id);
+
+            return redirect()
+                ->back()
+                ->withSuccess(__('user.user_deleted_successfully'));
+        } catch (Exception $exception) {
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('user.something_want_wrong_try_again'));
+        }
     }
 }

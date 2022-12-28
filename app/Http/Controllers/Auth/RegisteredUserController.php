@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'dob' => ['required'],
-            'g-recaptcha-response' => 'recaptcha',//recaptcha validation
+            'g-recaptcha-response' => 'recaptcha', //recaptcha validation
         ]);
 
         $user = User::create([
@@ -56,16 +56,10 @@ class RegisteredUserController extends Controller
             'dob' => $request->dob,
             'g-recaptcha-response' => 'required|captcha',
         ]);
-
-        // Mail::to("charmi.santoki@viitor.cloud")->send(new TestMail($user));
-
+        
         event(new Registered($user));
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
-       
-
-
-         // return "Email Sent";
     }
 }
