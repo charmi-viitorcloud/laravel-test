@@ -9,18 +9,20 @@ use App\Constant\Constant;
 class BlogRepository extends Repository
 {
     /**
-     * @var string
-     * Return the model
+     * Create a new controller instance.
+     *
+     * @param  UserRepository  $users
+     * @return void
      */
     public function __construct()
     {
         $this->model = CONSTANT::BlOG;
     }
 
-    /**
-     * get blog listing
-     * 
-     * @return array
+     /**
+     * Show the profile for the given user.
+     *
+     * @return Response
      */
     public function getBlogList()
     {

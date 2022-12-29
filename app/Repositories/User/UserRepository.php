@@ -23,13 +23,8 @@ class UserRepository extends Repository
      * @return array
      */
     public function getUserList()
-    {       
-        // $authId = auth()->user()->id;
-        
+    {               
        return  $this->model::paginate(Constant::STATUS_THREE);
-
-    //    $user = User::paginate(Constant::STATUS_TEN);
-
     
     }
 }

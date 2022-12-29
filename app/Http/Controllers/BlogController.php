@@ -15,8 +15,7 @@ class BlogController extends Controller
 {
     public function __construct(
         private BlogRepository $blogRepository
-    ){
-
+    ) {
     }
     /**  
      * Display a listing of the blog.
@@ -26,8 +25,6 @@ class BlogController extends Controller
     public function index(): View|RedirectResponse
     {
         try {
-
-            
             $blogs = $this->blogRepository->getBlogList();
             return view('pages.bloglist', compact('blogs'));
         } catch (Exception $exception) {
@@ -58,14 +55,14 @@ class BlogController extends Controller
      */
     public function store(BlogStoreRequest $request): RedirectResponse
     {
-                try {
+        try {
             $request['created_by'] = auth()->user()->id;
-          
-           $blogs = $this->blogRepository->create($request->all());
 
-           return redirect()
-               ->route('blogs.index')
-               ->withSuccess(__('blog.blog_created_successfully'));
+            $blogs = $this->blogRepository->create($request->all());
+
+            return redirect()
+                ->route('blogs.index')
+                ->withSuccess(__('blog.blog_created_successfully'));
         } catch (Exception $exception) {
             Log::error($exception);
 
@@ -95,7 +92,7 @@ class BlogController extends Controller
     {
         try {
             $blog = $this->blogRepository->findById($id);
-         
+
             return view('pages.blogedit', compact('blog'));
         } catch (Exception $exception) {
             Log::error($exception);
@@ -114,9 +111,8 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(BlogUpdateRequest $request, int $id): RedirectResponse
-    { 
+    {
         try {
-
             $this->blogRepository->update($id, $request->all());
             return redirect()
                 ->route('blogs.index')
