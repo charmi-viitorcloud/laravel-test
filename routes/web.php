@@ -27,9 +27,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', [RegisteredUserController::class, 'create']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,3 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 require __DIR__ . '/auth.php';
 
+Route::get('email-test', function () {
+
+    $details['email'] = 'your_email@gmail.com';
+
+    dispatch(new App\Jobs\SendEmailJob($details));
+});
