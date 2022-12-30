@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\User;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -27,7 +28,6 @@ class UserController extends Controller
     {
         try {
             $users = $this->userRepository->getUserList();
-            // dd($users);
             return view('pages.list', compact('users'));
         } catch (Exception $exception) {
 
@@ -58,12 +58,9 @@ class UserController extends Controller
     public function store(UserStoreRequest $request): RedirectResponse
     {
         try {
-            // $request['created_by'] = auth()->user()->id;
             $request['password'] = Hash::make($request['password']);
-            // dd($request->password);
 
             $users = $this->userRepository->create($request->all());
-        //    dd($users);
             return redirect()
                 ->route('users.index')
                 ->withSuccess(__('user.user_created_successfully'));

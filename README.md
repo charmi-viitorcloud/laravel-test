@@ -8,6 +8,10 @@ Required :
 
     PHP ^8.0
 
+    NODE v18.8.0
+
+    NPM 8.18.0
+
 # Installation
 
 Clone the repository

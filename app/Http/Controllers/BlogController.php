@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Blog;
 use App\Http\Requests\BlogStoreRequest;
 use App\Http\Requests\BlogUpdateRequest;
@@ -56,7 +57,7 @@ class BlogController extends Controller
     public function store(BlogStoreRequest $request): RedirectResponse
     {
         try {
-            $request['created_by'] = auth()->user()->id;
+            $request['created_by'] = Helper::loginuser();
 
             $blogs = $this->blogRepository->create($request->all());
 

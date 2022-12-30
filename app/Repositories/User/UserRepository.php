@@ -5,6 +5,9 @@ namespace App\Repositories\User;
 use App\Repositories\Core\Repository;
 use App\Models\User;
 use App\Constant\Constant;
+use Illuminate\Support\Facades\Log;
+use Exception;
+
 
 class UserRepository extends Repository
 {
@@ -14,7 +17,16 @@ class UserRepository extends Repository
      */
     public function __construct()
     {
-        $this->model = CONSTANT::USER;
+        try{
+            $this->model = config('model-variable.models.user.class');
+        }catch (Exception $exception) {
+
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
 
     /**
@@ -23,8 +35,16 @@ class UserRepository extends Repository
      * @return array
      */
     public function getUserList()
-    {               
-       return  $this->model::paginate(Constant::STATUS_THREE);
-    
+    {
+        try {
+            return  $this->model::paginate(Constant::STATUS_THREE);
+        } catch (Exception $exception) {
+
+            Log::error($exception);
+
+            return redirect()
+                ->back()
+                ->withError(__('blog.something_want_wrong_try_again'));
+        }
     }
 }
